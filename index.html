@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jyoti's Birthday</title>
+    <style>
+        /* Body and card styling */
+        body {
+            background-color: #1e1e1e;
+            color: #af1111;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Hidden by default until countdown finishes */
+        .birthdayCard {
+            
+            display: none; /* Hide by default */
+        }
+
+        .birthdayCard.show {
+            display: block; /* Show after countdown */
+        }
+
+        .birthdayCard:hover {
+            transform: rotateY(180deg);
+        }
+
+      
+        .cardFront {
+            background-color: #c31c5f;
+        }
+
+      
+       
+
+        .time-box {
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Countdown Timer Section -->
+    <div  class="container"  id="countdown ">
+        <h2 style="color: rgb(228, 243, 21); font-size: 45px;">✨Countdown for specila day✨</h2>
+        <div class="time-box">
+            
+            <span id="days" style="font-size: 34px;"></span> <h3>Days</h3>
+      
+        </div>
+        <div class="time-box">
+            <span id="hours" style="font-size: 34px;"></span>
+            <h3>Hours</h3>
+           
+        </div>
+        <div class="time-box">
+            <span id="minutes" style="font-size: 34px;"></span>
+           
+            <h3>Minutes</h3>
+        </div>
+        <div class="time-box">
+            <span id="seconds" style="font-size: 34px;"></span>
+                      <h3>Seconds</h3>
+        </div>
+    </div>
+
+    <!-- Birthday Card Section (hidden by default) -->
+    <div class="body">
+        <div class="birthdayCard" onmouseover="confetti()">
+            <div class="cardFront">
+                <img src="https://github.com/DzarelDeveloper/Img/blob/main/ballon.png?raw=true" class="balloons" alt="balloons" />
+                <img src="https://github.com/DzarelDeveloper/Img/blob/main/hat.png?raw=true" alt="bdHat" class="bdHat" />
+                <img src="https://i.postimg.cc/Wpmgcqxr/R.png" alt="cake" class="cake" />
+            <h1 class="birthday-girl" style="color: #ff69b4; text-align: center; margin: 20vh auto; font-family: 'Courier New', monospace; font-weight: bold;">BIRTHDAY GIRL</h1>
+            <h2 class="happy" style="color: #eb5596;">Happy Birthday to Jyoti🎊 !!</h2>
+            </div>
+            <div class="cardInside">
+                <h3 class="back">HAPPY 17th Birthday!</h3> <p>2nd December</p> <p>"Happy Birthday to Jyoti🎊 . who makes my life beautiful. 🌸 I can't imagine letting this day begin without looking into your eyes 👀 and wishing you everything you deserve. I’ll be waiting for you at Mankhurd Station, Platform 2, near the ticket counter at 10:30 AM. Just seeing you will be the best gift I could ask for. Please come. ❤️" 🌄<p>Enjoy your special day, filled with joy, peace, and all the beauty of the hills⛰️! and once again "Many Many Happiest returns of the day" 🎉🎂</p>
+
+</div>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Circular Audio Player</title>
+    <style>
+        :root {
+            --primary-color: #1d1d2a; /* Indigo */
+            --primary-hover: #ae149f;
+            --bg-color: #080b10;
+            --icon-color: #0e0303;
+            --ring-track: #21242a;
+            --ring-size: 100px;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color:rgb(207, 207, 41);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+        }
+
+        /* Container for the player */
+        .audio-player-wrapper {
+            position: relative;
+            width: var(--ring-size);
+            height: var(--ring-size);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* The actual button in the center */
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(82, 83, 135, 0.4);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            z-index: 2;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            background-color: var(--primary-hover);
+        }
+
+        .play-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Icons */
+        .icon {
+            fill: var(--icon-color);
+            width: 24px;
+            height: 24px;
+            transition: opacity 0.2s ease;
+            position: absolute;
+        }
+
+        /* Logic to toggle icons */
+        .icon-pause {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .audio-player-wrapper.playing .icon-play {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .audio-player-wrapper.playing .icon-pause {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* SVG Progress Ring */
+        .progress-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg); /* Start from top */
+            z-index: 1;
+            pointer-events: none; /* Let clicks pass through to button */
+        }
+
+        .progress-ring__circle-track {
+            stroke: var(--ring-track);
+            stroke-width: 4;
+            fill: transparent;
+        }
+
+        .progress-ring__circle-fill {
+            stroke: var(--primary-color);
+            stroke-width: 4;
+            fill: transparent;
+            stroke-linecap: round;
+            /* Circumference = 2 * PI * r (46) ≈ 289 */
+            stroke-dasharray: 289; 
+            stroke-dashoffset: 289; /* Start completely empty */
+            transition: stroke-dashoffset 0.1s linear;
+        }
+
+        /* Optional: Label below */
+        .player-label {
+            position: absolute;
+            bottom: -30px;
+            width: 200px;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="audio-player-wrapper" id="playerContainer">
+        
+        <!-- The Audio Element (Hidden) -->
+        <!-- Replace src with your own audio file -->
+        <audio id="audioSource" preload="metadata">
+            <source src="your-song-file.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- SVG Progress Ring -->
+        <svg class="progress-ring" width="100" height="100">
+            <!-- Background Track -->
+            <circle 
+                class="progress-ring__circle-track" 
+                cx="50" cy="50" r="46"
+            />
+            <!-- Moving Fill -->
+            <circle 
+                class="progress-ring__circle-fill" 
+                id="progressCircle"
+                cx="50" cy="50" r="46"
+            />
+        </svg>
+
+        <!-- Main Button -->
+        <button class="play-btn" id="playBtn" aria-label="Play/Pause">
+            <!-- Play Icon (Triangle) -->
+            <svg class="icon icon-play" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+            
+            <!-- Pause Icon (Two Bars) -->
+            <svg class="icon icon-pause" viewBox="0 0 24 24">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+        </button>
+
+        <div class="player-label">Click to Play</div>
+
+    </div>
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Circular Audio Player</title>
+    <style>
+        :root {
+            --primary-color: #6366f1; /* Indigo */
+            --primary-hover: #4f46e5;
+            --bg-color: #080a0d;
+            --icon-color: #f6eeee;
+            --ring-track: #f1d0f2;
+            --ring-size: 100px;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+        }
+
+        /* Container for the player */
+        .audio-player-wrapper {
+            position: relative;
+            width: var(--ring-size);
+            height: var(--ring-size);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* The actual button in the center */
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            z-index: 2;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            background-color: var(--primary-hover);
+        }
+
+        .play-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Icons */
+        .icon {
+            fill: var(--icon-color);
+            width: 24px;
+            height: 24px;
+            transition: opacity 0.2s ease;
+            position: absolute;
+        }
+
+        /* Logic to toggle icons */
+        .icon-pause {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .audio-player-wrapper.playing .icon-play {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .audio-player-wrapper.playing .icon-pause {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* SVG Progress Ring */
+        .progress-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg); /* Start from top */
+            z-index: 1;
+            pointer-events: none; /* Let clicks pass through to button */
+        }
+
+        .progress-ring__circle-track {
+            stroke: var(--ring-track);
+            stroke-width: 4;
+            fill: transparent;
+        }
+
+        .progress-ring__circle-fill {
+            stroke: var(--primary-color);
+            stroke-width: 4;
+            fill: transparent;
+            stroke-linecap: round;
+            /* Circumference = 2 * PI * r (46) ≈ 289 */
+            stroke-dasharray: 289; 
+            stroke-dashoffset: 289; /* Start completely empty */
+            transition: stroke-dashoffset 0.1s linear;
+        }
+
+        /* Optional: Label below */
+        .player-label {
+            position: absolute;
+            bottom: -30px;
+            width: 200px;
+            text-align: center;
+            color: #08090a;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="audio-player-wrapper" id="playerContainer">
+        
+        <!-- The Audio Element (Hidden) -->
+        <!-- Replace src with your own audio file -->
+        <audio id="audioSource" preload="metadata">
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
+        <!-- SVG Progress Ring -->
+        <svg class="progress-ring" width="100" height="100">
+            <!-- Background Track -->
+            <circle 
+                class="progress-ring__circle-track" 
+                cx="50" cy="50" r="46"
+            />
+            <!-- Moving Fill -->
+            <circle 
+                class="progress-ring__circle-fill" 
+                id="progressCircle"
+                cx="50" cy="50" r="46"
+            />
+        </svg>
+
+        <!-- Main Button -->
+        <button class="play-btn" id="playBtn" aria-label="Play/Pause">
+            <!-- Play Icon (Triangle) -->
+            <svg class="icon icon-play" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+            
+            <!-- Pause Icon (Two Bars) -->
+            <svg class="icon icon-pause" viewBox="0 0 24 24">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+            </svg>
+        </button>
+
+        <div class="player-label">Click to Play</div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('playerContainer');
+            const playBtn = document.getElementById('playBtn');
+            const audio = document.getElementById('audioSource');
+            const progressCircle = document.getElementById('progressCircle');
+            const label = document.querySelector('.player-label');
+
+            // SVG Circle Properties
+            const radius = progressCircle.r.baseVal.value;
+            const circumference = 2 * Math.PI * radius;
+
+            // Initialize dash array/offset
+            progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+            progressCircle.style.strokeDashoffset = circumference;
+
+            // 1. Toggle Play/Pause
+            playBtn.addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    container.classList.add('playing');
+                    label.textContent = "Playing...";
+                } else {
+                    audio.pause();
+                    container.classList.remove('playing');
+                    label.textContent = "Paused";
+                }
+            });
+
+            // 2. Update Progress Ring
+            audio.addEventListener('timeupdate', () => {
+                if (audio.duration) {
+                    const percent = audio.currentTime / audio.duration;
+                    const offset = circumference - (percent * circumference);
+                    progressCircle.style.strokeDashoffset = offset;
+                }
+            });
+
+            // 3. Handle End of Track
+            audio.addEventListener('ended', () => {
+                container.classList.remove('playing');
+                progressCircle.style.strokeDashoffset = circumference; // Reset ring
+                audio.currentTime = 0; // Reset audio
+                label.textContent = "Replay";
+            });
+
+            // 4. Error Handling (Optional safety)
+            audio.addEventListener('error', () => {
+                label.textContent = "Error loading audio";
+                playBtn.disabled = true;
+                playBtn.style.opacity = "0.5";
+            });
+        });
+    </script>
+</body>
+</html>
+    </div>
+    
+
+    <!-- Confetti Script -->
+    <script src='https://cdn.jsdelivr.net/npm/canvas-confetti@1/dist/confetti.browser.min.js'></script>
+    <script>
+        // Confetti from both sides
+        function confettiSide() {
+            var end = Date.now() + 3 * 1000; // Show confetti for 10 seconds
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 }
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Countdown Timer Script
+        const targetDate = new Date("2 December, 2025 12:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const timeRemaining = targetDate - now;
+
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            document.getElementById("days").textContent = days;
+            document.getElementById("hours").textContent = hours;
+            document.getElementById("minutes").textContent = minutes;
+            document.getElementById("seconds").textContent = seconds;
+
+            if (timeRemaining < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").style.display = "none";
+                document.querySelector(".birthdayCard").classList.add("show");
+                confettiSide(); // Start confetti from both sides for 10 seconds
+            }
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+
+</body>
+</html>
